@@ -1,0 +1,59 @@
+<html>
+<head>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost/');
+  socket.on('gotData', function (data) {
+    console.log(data);
+	var date = new Date();
+	var table = date.toUTCString() + "<table border='1'><thead><tr><th>item</th><th>status</th><th>description</th></tr></thead><tbody>";
+	for (var i in data.items) {
+		table += "<tr>";
+		table += "<td>" + i + "</td>";
+		table += "<td>" + data.items[i].status + "</td>";
+		table += "<td>" + data.items[i].description + "</td>";
+		table += "</tr>";
+	}
+	table += "</tbody>";
+	table += "</table>"
+	
+
+	document.getElementById("content").innerHTML = table;
+	//$(document.body).append();
+    //socket.emit('my other event', { my: 'data' });
+  });
+	function stop() {
+		socket.emit('stop', {});
+	}
+	function resume() {
+		socket.emit('resume', {});
+	}
+	function testWarning() {
+		socket.emit('testWarning', {});
+	}
+	function testError() {
+		socket.emit('testError', {});
+	}
+	function reset() {
+		socket.emit('reset', {});
+	}
+	function setMode(modeStr) {
+		socket.emit('setMode', {mode:modeStr});
+	}
+	
+
+</script>
+
+</head>
+<body>
+	<input type="button" value="stop" onclick="stop()">
+		<input type="button" value="resume" onclick="resume()">
+			<input type="button" value="testWarning" onclick="testWarning()">
+				<input type="button" value="testError" onclick="testError()">
+				<input type="button" value="reset" onclick="reset()">
+				<input type="button" value="Rainbow Mode!" onclick="setMode('rainbow')">
+				<input type="button" value="Normal Mode" onclick="setMode('normal')">				
+	<div id="content"></div>
+	
+</body>	
+</html>
