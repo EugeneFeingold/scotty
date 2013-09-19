@@ -73,3 +73,11 @@ uint32_t StripUtils::getIntermediateColor(uint32_t first, uint32_t second, float
 
 
 
+
+uint32_t StripUtils::scaleColor(uint32_t col) {
+  uint8_t r = col >> 8;
+  uint8_t g = col >> 16;
+  uint8_t b = col ;
+  return getColor(r/2, g/2, b/2);
+}
+

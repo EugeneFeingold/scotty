@@ -16,7 +16,7 @@ public:
   static uint32_t getRandomBalancedColor(float brightness);
 
   static uint32_t getIntermediateColor(uint32_t first, uint32_t second, float frac);
-  
+  static uint32_t scaleColor(uint32_t col);
 
 
 private: 
